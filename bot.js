@@ -3,9 +3,9 @@
 var irc = require('irc');
 var messageAction = require('./message_action');
 var config = {
-    channels: ["##francophonie"],
+    channels: ["##yabbot-testing"],
     server: "irc.freenode.org",
-    botName: "yabbot",
+    botName: "yabbot-testing",
     autoRejoin: false,
     userName: 'yabbot',
     realName: 'le yabbot',

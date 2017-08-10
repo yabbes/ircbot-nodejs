@@ -1,4 +1,4 @@
-var archive = [];
+var slogans = ['?', 'oui?', 'mhm?', '...', 'demande à debianero!', 'ouais?', 'non.', 'non!'];
 var locallydb = require('locallydb');
 var dateFormat = require('dateformat');
 var commands = ['^rand', '^last', '^help'];
@@ -8,8 +8,8 @@ var collection = db.collection('logfile');
 
 module.exports = {
     react: function(msg) {
-        //console.log("hello from ma, message was: ", msg);
-        return "Je sers à rien d'autre qu'à répondre à ^rand; ca a changé, essayez ^help";    
+        // Pick a random slogan and return it
+        return slogans[Math.floor(Math.random()*slogans.length)];    
     },
     rand: function(nick) {
         //return archive[Math.floor(Math.random()*archive.length)]
@@ -31,7 +31,7 @@ module.exports = {
             var last_item = query.items[query.items.length-1];
             var d = new Date(last_item.$created);
             //var datestring = d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear() + " vers " + d.getHours() + " heures. Il / Elle disait: " + last_item.message;
-            var datestring = dateFormat(d, "dd.mm.yyyy HH:MM") + " Il / Elle disait: " + last_item.message;
+            var datestring = dateFormat(d, "dd.mm.yyyy HH:MM") + " ça disait: " + last_item.message;
             return datestring;
         }
         catch(e) {
