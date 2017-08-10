@@ -3,17 +3,19 @@
 var irc = require('irc');
 var messageAction = require('./message_action');
 var config = {
-    channels: ["##francophonie"],
+    channels: ["##yabbot-testing"],
     server: "irc.freenode.org",
-    botName: "yabbot",
+    botName: "yabbot-testing",
     autoRejoin: false,
+    userName: 'yabbot',
+    realName: 'le yabbot',
     autoConnect: true,
     floodProtection: true,
     floodProtectionDelay: 3000
 };
 
 
-var bot = new irc.Client(config.server, config.botName, { channels: config.channels });
+var bot = new irc.Client(config.server, config.botName, { channels: config.channels, userName: config.userName, realName: config.realName });
 
 console.log("connected to ", config.channels, " on ", config.server);
 
@@ -24,7 +26,8 @@ bot.addListener('message', function (from, to, message) {
     if(message.toUpperCase().startsWith(config.botName.toUpperCase())){
         bot.say(to, messageAction.react(message));
     } else if (message.toUpperCase().startsWith('^rand'.toUpperCase())) {
-        bot.say(to, messageAction.rand());
+        var split_m = message.split(' '); // nick = split_m[1]
+        bot.say(to, split_m[1] + ": " + messageAction.rand(split_m[1]));
     }
     
 
