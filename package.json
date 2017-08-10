@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dateformat": "^2.0.0",
     "irc": "^0.5.2",
     "locallydb": "0.0.9",
     "nodemon": "^1.11.0",
