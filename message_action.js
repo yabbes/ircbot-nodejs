@@ -29,7 +29,7 @@ module.exports = {
             var query = collection.where({name: nick});
             var last_item = query.items[query.items.length-1];
             var d = new Date(last_item.$created);
-            var datestring = d.getDate() + '.' + d.getMonth() + '.' + d.getFullYear() + " vers " + d.getHours() + " heures. Il / Elle disait: " + last_item.message;
+            var datestring = d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear() + " vers " + d.getHours() + " heures. Il / Elle disait: " + last_item.message;
 
             return datestring;
         }
