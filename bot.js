@@ -35,8 +35,9 @@ bot.addListener('message', function (from, to, message) {
     } else if (message.toUpperCase().startsWith('^help'.toUpperCase())) { // ^help
         bot.say(to, from + ": " + messageAction.help());
     } else if (message.toUpperCase().startsWith('^weather'.toUpperCase())) { // ^weather
-        var split_m = message.split(' '); // weather = split_m[1]
-        messageAction.meteo(split_m[1], function (res) {
+        //var split_m = message.split(' '); // weather = split_m[1]
+        var location = message.substring(8);
+        messageAction.meteo(location, function (res) {
             bot.say(to, from + ": " + res);
         });
         //console.log("meteo");
@@ -56,8 +57,9 @@ bot.addListener('message', function (from, to, message) {
         var split_m = message.split(' '); // nick = split_m[1]
         bot.say(to, messageAction.minus(split_m[1]));
     } else if (message.toUpperCase().startsWith('^save'.toUpperCase())) { // ^save 
-        var split_m = message.split(' '); // nick = split_m[1]
-        bot.say(to, messageAction.saveNote(from, split_m[1]));
+        //var split_m = message.split(' '); // nick = split_m[1]
+        var note_part = message.substring(6);
+        bot.say(to, messageAction.saveNote(from, note_part));
     } else if (message.toUpperCase().startsWith('^notes'.toUpperCase())) { // ^notes (show)
         var split_m = message.split(' '); // nick = split_m[1]
         bot.say(to, from + ": " + messageAction.showNotes(from));
