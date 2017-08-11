@@ -9,6 +9,7 @@ var commands = ['^rand', '^last', '^help', '^weather', '^rating'];
 var db = new locallydb('./mydb');
 var collection = db.collection('logfile');
 var coll_rating = db.collection('rating');
+var coll_notes = db.collection('notes');
 
 module.exports = {
     react: function(msg) {
@@ -91,6 +92,54 @@ module.exports = {
             return '+1 attribué(s) à ' + nick + ': 0';
         }
 
+    },
+    saveNote: function(nick, note) {
+        // save a user note
+        var elem = coll_notes.where({name: nick});
+        if(elem.items.length === 0) { // has no notes yet
+            coll_notes.insert([
+                {name: nick, notes: [note]}
+            ]);
+        } else if (elem.items.length === 1) {
+            var elem_cid = elem.items[0].cid;
+            var elem_notes = elem.items[0].notes;
+            elem_notes.push(note);
+            console.log(elem_notes);
+            coll_notes.update(elem_cid, {notes: elem_notes});
+        }
+        coll_notes.save();
+        return 'Dac';
+    },
+    showNotes: function(nick) {
+        // Show user notes
+        var elem = coll_notes.where({name: nick});
+        if(elem.items.length === 0 ) {
+            return "j'ai 0 notes là";
+        } else if (elem.items.length === 1) {
+            var elem_cid = elem.items[0].cid;
+            var elem_notes = elem.items[0].notes;
+            var notes = '';
+            elem_notes.map(function(note, index) {
+                notes += '[' +index + ']: ' + note + ' ';
+            });
+            return notes;
+        }
+        return "j'ai 0 notes là";
+    },
+    clear: function(nick) {
+        // clear user notes
+        console.log(nick);
+        var elem = coll_notes.where({name: nick});
+        console.log(elem);
+        if(elem.items.length === 0) {
+            return "0 notes trouvées";
+        } else if (elem.items.length === 1) {
+            var elem_cid = elem.items[0].cid;
+            
+            coll_notes.update(elem_cid, {notes: []});
+            coll_notes.save();
+            return "tes notes ont été supprimées";
+        }
     },
     minus: function(nick) {
         return nick + ': Boooooooooooooooooooohhhhhhhh !';
