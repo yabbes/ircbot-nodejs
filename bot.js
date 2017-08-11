@@ -4,9 +4,9 @@ var irc = require('irc');
 var weather = require('weather-js');
 var messageAction = require('./message_action');
 var config = {
-    channels: ["##yabbot-testing"],
+    channels: ["##francophonie"],
     server: "irc.freenode.org",
-    botName: "yabbot-testing",
+    botName: "yabbot",
     autoRejoin: false,
     userName: 'yabbot',
     realName: 'le yabbot',
