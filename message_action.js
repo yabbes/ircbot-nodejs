@@ -49,12 +49,15 @@ module.exports = {
         weather.find({search: loc, degreeType: 'C'}, function(err, result) {
             if (err) {
                 console.log(err);
+                return;
             }
-            loc_name = result[0].location.name;
-            loc_temp = result[0].current.temperature;
-            console.log(loc_name, loc_temp);
-            temp_string = "La météo en ce moment à " +loc_name + " " + loc_temp + "°C";
-            cb(temp_string);
+            if(result[0]){
+                loc_name = result[0].location.name;
+                loc_temp = result[0].current.temperature;
+                console.log(loc_name, loc_temp);
+                temp_string = "La météo en ce moment à " +loc_name + " " + loc_temp + "°C";
+                cb(temp_string);
+            }
         });
     },
     collectPlus: function(nick) {
