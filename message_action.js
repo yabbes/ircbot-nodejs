@@ -63,7 +63,7 @@ module.exports = {
         return "I know the following commands: " + help_commands_string;
     },
     addToArchive: function(msg, nick) {
-        if (!msg.toUpperCase().startsWith('^rand'.toUpperCase())){
+        if (!msg.toUpperCase().startsWith('^'.toUpperCase())){
             //archive.push(nick + ': ' + msg); LOG to Locallydb
             collection.insert([
                 {name: nick, message: msg}
