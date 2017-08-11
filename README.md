@@ -12,7 +12,7 @@ node bot.js
 - Allowing weather queries via [weather-js](https://www.npmjs.com/package/weather-js)
 - Telling when user was last seen and fetching a random message for user 
 - rating based on +1 given in the channel to user x
-   - The bot collects all +1 and can give status reports for each user using ^rand 
+   - The bot collects all +1 and can give status reports for each user using ^rating {user} 
 
 
 ### Commands
@@ -20,4 +20,4 @@ node bot.js
 - ^rand {user}
 - ^last {user}
 - ^weather {location}
-- ^rating
+- ^rating {user}
