@@ -52,21 +52,30 @@ bot.addListener('message', function (from, to, message) {
     } else if (message.toUpperCase().startsWith('^rating'.toUpperCase())) { // ^rating
         var split_m = message.split(' '); // nick = split_m[1]
         bot.say(to, messageAction.rating(split_m[1]));
-    } 
-    else if (message.toUpperCase().startsWith('-1'.toUpperCase())) { // ^rating
+    } else if (message.toUpperCase().startsWith('-1'.toUpperCase())) { // ^BOOOO
         var split_m = message.split(' '); // nick = split_m[1]
         bot.say(to, messageAction.minus(split_m[1]));
+    } else if (message.toUpperCase().startsWith('^save'.toUpperCase())) { // ^save 
+        var split_m = message.split(' '); // nick = split_m[1]
+        bot.say(to, messageAction.saveNote(from, split_m[1]));
+    } else if (message.toUpperCase().startsWith('^notes'.toUpperCase())) { // ^notes (show)
+        var split_m = message.split(' '); // nick = split_m[1]
+        bot.say(to, from + ": " + messageAction.showNotes(from));
+    } else if (message.toUpperCase().startsWith('^clear'.toUpperCase())) { // ^clear (remove user notes)
+        var split_m = message.split(' '); // nick = split_m[1]
+        bot.say(to, from + ": " + messageAction.clear(from));
     }
     
 
 });
 
-// Handling private messages
+// Handling private messages // Disabled until further implementation
+/*
 bot.addListener('pm', function (from, message) {
     console.log(from + ' => ME: ' + message);
     bot.say(from, "I am a bot, I'm sorry but I can't talk to you in private yet.");
 });
-
+*/
 // Handling error
 bot.addListener('error', function(message) {
     console.log('error: ', message);
