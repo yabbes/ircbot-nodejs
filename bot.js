@@ -4,9 +4,9 @@ var irc = require('irc');
 var weather = require('weather-js');
 var messageAction = require('./message_action');
 var config = {
-    channels: ["##francophonie"],
+    channels: ["##yabbot-testing"],
     server: "irc.freenode.org",
-    botName: "yabbot",
+    botName: "yabbot-testing",
     autoRejoin: false,
     userName: 'yabbot',
     realName: 'le yabbot',
@@ -40,7 +40,16 @@ bot.addListener('message', function (from, to, message) {
             bot.say(to, from + ": " + res);
         });
         //console.log("meteo");
-    } 
+    } else if (message.toUpperCase().startsWith('+1'.toUpperCase())) { // ^collect +1
+        var split_m = message.split(' '); // nick = split_m[1]
+        if (split_m[1]){
+            var rating = messageAction.collectPlus(split_m[1]);
+            if (rating != '') {
+                bot.say(to, rating); 
+            }
+        }
+        //bot.say(to, from + ": " + messageAction.help());
+    }
     
 
 });

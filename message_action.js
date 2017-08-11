@@ -8,6 +8,7 @@ var commands = ['^rand', '^last', '^help', '^weather'];
 
 var db = new locallydb('./mydb');
 var collection = db.collection('logfile');
+var coll_rating = db.collection('rating');
 
 module.exports = {
     react: function(msg) {
@@ -55,6 +56,29 @@ module.exports = {
             temp_string = "La météo en ce moment à " +loc_name + " " + loc_temp + "°C";
             cb(temp_string);
         });
+    },
+    collectPlus: function(nick) {
+        // Check if user new
+        console.log(coll_rating.where({name: nick}));
+        if(coll_rating.where({name: nick}).items.length === 0){
+            coll_rating.insert([
+                {name: nick, rating: 1}
+            ]);
+        } else { // User exists => update rating
+            var elem = coll_rating.where({name: nick});
+            var elem_cid = elem.items[0].cid;
+            var elem_old_rating = elem.items[0].rating;
+            var new_value = elem_old_rating + 1;
+            console.log(elem.items[0].cid);
+            coll_rating.update(elem_cid, {rating: new_value});
+        }
+        
+        coll_rating.save();
+        if (new_value % 10 == 0) {
+            return 'Wow, ' + nick + ' a déjà encaissé ' + new_value + ' +1'; 
+        }
+        return '';
+
     },
     help: function() {
         var help_commands_string = commands.map(function(cmd) {
