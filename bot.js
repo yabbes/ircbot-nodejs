@@ -1,6 +1,7 @@
 // Simple irc bot
 
 var irc = require('irc');
+var weather = require('weather-js');
 var messageAction = require('./message_action');
 var config = {
     channels: ["##yabbot-testing"],
@@ -32,8 +33,13 @@ bot.addListener('message', function (from, to, message) {
         var split_m = message.split(' '); // nick = split_m[1]
         bot.say(to, "vu la dernière fois " + split_m[1] + ": " + messageAction.last(split_m[1]));
     } else if (message.toUpperCase().startsWith('^help'.toUpperCase())) { // ^help
-        var split_m = message.split(' '); // nick = split_m[1]
         bot.say(to, from + ": " + messageAction.help());
+    } else if (message.toUpperCase().startsWith('^weather'.toUpperCase())) { // ^weather
+        var split_m = message.split(' '); // weather = split_m[1]
+        messageAction.meteo(split_m[1], function (res) {
+            bot.say(to, from + ": " + res);
+        });
+        //console.log("meteo");
     } 
     
 

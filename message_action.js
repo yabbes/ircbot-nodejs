@@ -1,7 +1,10 @@
-var slogans = ['?', 'oui?', 'mhm?', '...', 'demande à debianero!', 'ouais?', 'non.', 'non!'];
 var locallydb = require('locallydb');
 var dateFormat = require('dateformat');
-var commands = ['^rand', '^last', '^help'];
+var weather = require('weather-js');
+
+var slogans = ['?', 'oui?', 'mhm?', '...', 'demande à debianero!', 'ouais?', 'non.', 'non!'];
+var commands = ['^rand', '^last', '^help', '^weather'];
+
 
 var db = new locallydb('./mydb');
 var collection = db.collection('logfile');
@@ -39,6 +42,19 @@ module.exports = {
             return '';
         }
 
+    },
+    meteo: function(loc, cb){
+        var loc_name, loc_temp, temp_string;
+        weather.find({search: loc, degreeType: 'C'}, function(err, result) {
+            if (err) {
+                console.log(err);
+            }
+            loc_name = result[0].location.name;
+            loc_temp = result[0].current.temperature;
+            console.log(loc_name, loc_temp);
+            temp_string = "La météo en ce moment à " +loc_name + " " + loc_temp + "°C";
+            cb(temp_string);
+        });
     },
     help: function() {
         var help_commands_string = commands.map(function(cmd) {
