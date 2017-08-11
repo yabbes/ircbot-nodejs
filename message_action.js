@@ -3,7 +3,7 @@ var dateFormat = require('dateformat');
 var weather = require('weather-js');
 
 var slogans = ['?', 'oui?', 'mhm?', '...', 'demande à debianero!', 'ouais?', 'non.', 'non!'];
-var commands = ['^rand', '^last', '^help', '^weather'];
+var commands = ['^rand', '^last', '^help', '^weather', '^rating'];
 
 
 var db = new locallydb('./mydb');
@@ -59,7 +59,7 @@ module.exports = {
     },
     collectPlus: function(nick) {
         // Check if user new
-        console.log(coll_rating.where({name: nick}));
+        //console.log(coll_rating.where({name: nick}));
         if(coll_rating.where({name: nick}).items.length === 0){
             coll_rating.insert([
                 {name: nick, rating: 1}
@@ -69,7 +69,6 @@ module.exports = {
             var elem_cid = elem.items[0].cid;
             var elem_old_rating = elem.items[0].rating;
             var new_value = elem_old_rating + 1;
-            console.log(elem.items[0].cid);
             coll_rating.update(elem_cid, {rating: new_value});
         }
         
@@ -79,6 +78,19 @@ module.exports = {
         }
         return '';
 
+    },
+    rating: function(nick) {
+        // Check +1 rating for user
+        var elem = coll_rating.where({name: nick});
+        if(elem.items.length != 0){
+            return '+1 attribué(s) à ' + nick + ': ' + elem.items[0].rating;
+        } else {
+            return '+1 attribué(s) à ' + nick + ': 0';
+        }
+
+    },
+    minus: function(nick) {
+        return nick + ': Boooooooooooooooooooohhhhhhhh !';
     },
     help: function() {
         var help_commands_string = commands.map(function(cmd) {

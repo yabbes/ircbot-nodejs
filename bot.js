@@ -49,6 +49,13 @@ bot.addListener('message', function (from, to, message) {
             }
         }
         //bot.say(to, from + ": " + messageAction.help());
+    } else if (message.toUpperCase().startsWith('^rating'.toUpperCase())) { // ^rating
+        var split_m = message.split(' '); // nick = split_m[1]
+        bot.say(to, messageAction.rating(split_m[1]));
+    } 
+    else if (message.toUpperCase().startsWith('-1'.toUpperCase())) { // ^rating
+        var split_m = message.split(' '); // nick = split_m[1]
+        bot.say(to, messageAction.minus(split_m[1]));
     }
     
 
