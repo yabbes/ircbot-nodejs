@@ -24,6 +24,14 @@ console.log("connected to ", config.channels, " on ", config.server);
 bot.addListener('message', function (from, to, message) {
     console.log(from + ' => ' + to + ': ' + message);
     messageAction.addToArchive(message, from); // log
+
+    // Check if user has queued messages
+    if(messageAction.checkIfHasMessage(from)) {
+        bot.say(to, "Attention, j'ai à vous parler !!");
+        //return user message(s)
+        bot.say(to, from + ": " + messageAction.returnMessages(from));
+    }
+
     if(message.toUpperCase().startsWith(config.botName.toUpperCase())){
         bot.say(to, messageAction.react(message));
     } else if (message.toUpperCase().startsWith('^rand'.toUpperCase())) { // ^rand
@@ -66,6 +74,9 @@ bot.addListener('message', function (from, to, message) {
     } else if (message.toUpperCase().startsWith('^clear'.toUpperCase())) { // ^clear (remove user notes)
         var split_m = message.split(' '); // nick = split_m[1]
         bot.say(to, from + ": " + messageAction.clear(from));
+    } else if (message.toUpperCase().startsWith('^tell'.toUpperCase())) { // ^tell tell other user
+        var split_m = message.split(' '); // nick = split_m[1]
+        bot.say(to, from + ": " + messageAction.tell(split_m[1], from, message.substring(5+split_m[1].length)));
     }
     
 

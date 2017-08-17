@@ -10,6 +10,7 @@ var db = new locallydb('./mydb');
 var collection = db.collection('logfile');
 var coll_rating = db.collection('rating');
 var coll_notes = db.collection('notes');
+var coll_tellmessages = db.collection('tellmessages');
 
 module.exports = {
     react: function(msg) {
@@ -140,6 +141,50 @@ module.exports = {
             coll_notes.save();
             return "tes notes ont été supprimées";
         }
+    },
+    tell: function(recipient, sender, message) {
+        coll_tellmessages.insert([
+                {sender: sender, recipient: recipient, message: message}
+            ]);
+        coll_tellmessages.save();
+        return "dac, je m'en charge";
+
+    },
+    checkIfHasMessage: function(nick) {
+        try {
+            var query = coll_tellmessages.where({recipient: nick});
+            //console.log(query);
+            if(query.items.length === 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        catch(e) {
+            console.log(e);
+            return false;
+        }
+
+    },
+    returnMessages: function(nick) {
+        var messages = coll_tellmessages.where({recipient: nick});
+        //console.log(messages);
+        if(messages.items.length != 0 ) {
+            var messagesToReturn = "";
+            var cidsToRemove = [];
+            for (var i = 0; i<messages.items.length; i++) {
+                messagesToReturn += messages.items[i].sender + ' te dit: ' + messages.items[i].message + "\n";
+                cidsToRemove.push(messages.items[i].cid); 
+            }
+            cidsToRemove.map(function (val){
+                coll_tellmessages.remove(val);
+                }
+            )
+            coll_tellmessages.save();
+            return messagesToReturn;
+
+        }
+
     },
     minus: function(nick) {
         return nick + ': Boooooooooooooooooooohhhhhhhh !';
