@@ -13,6 +13,8 @@ node bot.js
 - Telling when user was last seen and fetching a random message for user 
 - rating based on +1 given in the channel to user x
    - The bot collects all +1 and can give status reports for each user using ^rating {user} 
+- save notes via ^save and display them with ^notes
+- tell messages to another user who isnt there at the moment ^tell
 
 
 ### Commands
@@ -21,3 +23,6 @@ node bot.js
 - ^last {user}
 - ^weather {location}
 - ^rating {user}
+- ^save {note}
+- ^notes 
+- ^tell

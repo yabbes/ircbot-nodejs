@@ -3,7 +3,7 @@ var dateFormat = require('dateformat');
 var weather = require('weather-js');
 
 var slogans = ['?', 'oui?', 'mhm?', '...', 'demande à debianero!', 'ouais?', 'non.', 'non!'];
-var commands = ['^rand', '^last', '^help', '^weather', '^rating', '^save', '^notes', '^clear'];
+var commands = ['^rand', '^last', '^help', '^weather', '^rating', '^save', '^notes', '^clear', '^tell'];
 
 
 var db = new locallydb('./mydb');
