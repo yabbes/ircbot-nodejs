@@ -2,8 +2,9 @@ var locallydb = require('locallydb');
 var dateFormat = require('dateformat');
 var weather = require('weather-js');
 
+
 var slogans = ['?', 'oui?', 'mhm?', '...', 'demande à debianero!', 'ouais?', 'non.', 'non!'];
-var commands = ['^rand', '^last', '^help', '^weather', '^rating', '^save', '^notes', '^clear', '^tell'];
+var commands = ['^rand', '^last', '^help', '^weather', '^rating', '^save', '^notes', '^jour', '^clear', '^tell'];
 
 
 var db = new locallydb('./mydb');
@@ -142,6 +143,13 @@ module.exports = {
             return "tes notes ont été supprimées";
         }
     },
+    cal_republicain: function() {
+        var cal = require('calendrier-republicain');
+        var someDay = new Date();
+        var republicanString = "nous sommes " + cal.dayOfDecadeName(someDay) + ", le " + cal.dayOfMonth(someDay) + " " + cal.monthName(someDay) + " de l'an " + cal.dayOfYear(someDay) + ". La journée est sous le signe de " + cal.dayOfYearName(someDay);
+        return republicanString;
+
+    },
     tell: function(recipient, sender, message) {
         coll_tellmessages.insert([
                 {sender: sender, recipient: recipient, message: message}
@@ -190,9 +198,8 @@ module.exports = {
         return nick + ': Boooooooooooooooooooohhhhhhhh !';
     },
     help: function() {
-        var help_commands_string = commands.map(function(cmd) {
-            return cmd;
-        });
+        var cmd_string = '';
+        var help_commands_string = commands.join(', ');
         return "I know the following commands: " + help_commands_string;
     },
     addToArchive: function(msg, nick) {

@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "calendrier-republicain": "0.0.1",
     "dateformat": "^2.0.0",
     "irc": "^0.5.2",
     "locallydb": "0.0.9",

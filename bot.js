@@ -4,9 +4,9 @@ var irc = require('irc');
 var weather = require('weather-js');
 var messageAction = require('./message_action');
 var config = {
-    channels: ["##yabbophonie"],
+    channels: ["##francophonie"],
     server: "irc.freenode.org",
-    botName: "yabbot",
+    botName: "chalumeau",
     autoRejoin: false,
     userName: 'yabbot',
     realName: 'le yabbot',
@@ -77,7 +77,10 @@ bot.addListener('message', function (from, to, message) {
     } else if (message.toUpperCase().startsWith('^tell'.toUpperCase())) { // ^tell tell other user
         var split_m = message.split(' '); // nick = split_m[1]
         bot.say(to, from + ": " + messageAction.tell(split_m[1], from, message.substring(7+split_m[1].length)));
-    }
+    } else if (message.toUpperCase().startsWith('^jour'.toUpperCase())) { // ^jour
+        bot.say(to, from + ": " + messageAction.cal_republicain());
+    } 
+
     
 
 });
