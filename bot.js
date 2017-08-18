@@ -27,7 +27,7 @@ bot.addListener('message', function (from, to, message) {
 
     // Check if user has queued messages
     if(messageAction.checkIfHasMessage(from)) {
-        bot.say(to, "écoutez moi attentivement :>");
+        //bot.say(to, "écoutez moi attentivement :>");
         //return user message(s)
         bot.say(to, from + ": " + messageAction.returnMessages(from));
     }
