@@ -146,7 +146,7 @@ module.exports = {
     cal_republicain: function() {
         var cal = require('calendrier-republicain');
         var someDay = new Date();
-        var republicanString = "nous sommes " + cal.dayOfDecadeName(someDay) + ", le " + cal.dayOfMonth(someDay) + " " + cal.monthName(someDay) + " de l'an " + cal.dayOfYear(someDay) + " de la Révolution. La journée est sous le signe de " + cal.dayOfYearName(someDay);
+        var republicanString = "nous sommes " + cal.dayOfDecadeName(someDay) + ", le " + cal.dayOfMonth(someDay) + " " + cal.monthName(someDay) + " de l'an " + cal.year(someDay) + " de la Révolution. La journée est sous le signe de " + cal.dayOfYearName(someDay);
         return republicanString;
 
     },
