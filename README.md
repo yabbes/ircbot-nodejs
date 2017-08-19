@@ -15,6 +15,7 @@ node bot.js
    - The bot collects all +1 and can give status reports for each user using ^rating {user} 
 - save notes via ^save and display them with ^notes
 - tell messages to another user who isnt there at the moment ^tell
+- tell the current date according to the French Republican Calendar (^jour / via [calendrier-republicain](https://www.npmjs.com/package/calendrier-republicain))
 
 
 ### Commands
@@ -25,4 +26,5 @@ node bot.js
 - ^rating {user}
 - ^save {note}
 - ^notes 
-- ^tell
+- ^tell {user}
+- ^jour
