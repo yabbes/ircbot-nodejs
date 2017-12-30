@@ -23,6 +23,10 @@ module.exports = {
         try {
             var query = collection.where({name: nick});
             var rand_item = query.items[Math.floor(Math.random()*query.items.length)];
+            while (rand_item.message.length < 14){
+                var rand_item = query.items[Math.floor(Math.random()*query.items.length)];
+            }
+            
             return rand_item.message;
         }
         catch(e) {
