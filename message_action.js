@@ -22,12 +22,31 @@ module.exports = {
         //return archive[Math.floor(Math.random()*archive.length)]
         try {
             var query = collection.where({name: nick});
-            var rand_item = query.items[Math.floor(Math.random()*query.items.length)];
-            while (rand_item.message.length < 80){
-                var rand_item = query.items[Math.floor(Math.random()*query.items.length)];
+            var num_items = query.items.length;
+            console.log("query = " + query.items.length);
+            if (num_items == 0) {
+                return nick + " s'est jamais pointé dans ce chan."
+            }
+            var starting_nr = Math.floor(Math.random()*query.items.length);
+            //var rand_item = query.items[Math.floor(Math.random()*query.items.length)];
+            //console.log("first rand item: " + rand_item.message);
+            
+            //from random point upwards
+            for (var i=starting_nr; i<num_items; i++){
+                var rand_item = query.items[i];
+                if(rand_item.message.length > 80) {
+                    return rand_item.message;
+                }
+            }
+            //from random point downwards
+            for (var i=starting_nr; i>0; i--){
+                var rand_item = query.items[i];
+                if(rand_item.message.length > 80) {
+                    return rand_item.message;
+                }
             }
             
-            return rand_item.message;
+            return nick + "n'a encore rien dit de qualité";
         }
         catch(e) {
             console.log(e);
