@@ -46,7 +46,7 @@ module.exports = {
                 }
             }
             
-            return nick + "n'a encore rien dit de qualité";
+            return nick + " n'a encore rien dit de remarquable";
         }
         catch(e) {
             console.log(e);
