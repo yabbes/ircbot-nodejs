@@ -4,7 +4,7 @@ var irc = require('irc');
 var weather = require('weather-js');
 var messageAction = require('./message_action');
 var config = {
-    channels: ["##yourchannel"],
+    channels: ["##yabbot-testing"],
     server: "irc.freenode.org",
     botName: "chalumeau",
     autoRejoin: false,
@@ -25,6 +25,9 @@ bot.addListener('message', function (from, to, message) {
     console.log(from + ' => ' + to + ': ' + message);
     messageAction.addToArchive(message, from); // log
 
+    // Add useraction to lastseen database
+    messageAction.addToLastSeenDb(message, from);
+
     // Check if user has queued messages
     if(messageAction.checkIfHasMessage(from)) {
         //bot.say(to, "écoutez moi attentivement :>");
@@ -39,7 +42,7 @@ bot.addListener('message', function (from, to, message) {
         bot.say(to, split_m[1] + ": " + messageAction.rand(split_m[1]));
     } else if (message.toUpperCase().startsWith('^last'.toUpperCase())) { // ^last
         var split_m = message.split(' '); // nick = split_m[1]
-        bot.say(to, "vu la dernière fois " + split_m[1] + ": " + messageAction.last(split_m[1]));
+        bot.say(to, "vu la dernière fois " + split_m[1] + ": " + messageAction.last_seen(split_m[1]));
     } else if (message.toUpperCase().startsWith('^help'.toUpperCase())) { // ^help
         bot.say(to, from + ": " + messageAction.help());
     } else if (message.toUpperCase().startsWith('^weather'.toUpperCase())) { // ^weather

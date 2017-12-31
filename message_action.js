@@ -12,6 +12,7 @@ var collection = db.collection('logfile');
 var coll_rating = db.collection('rating');
 var coll_notes = db.collection('notes');
 var coll_tellmessages = db.collection('tellmessages');
+var coll_lastseen = db.collection('lastseen');
 
 module.exports = {
     react: function(msg) {
@@ -63,6 +64,32 @@ module.exports = {
             //var datestring = d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear() + " vers " + d.getHours() + " heures. Il / Elle disait: " + last_item.message;
             var datestring = dateFormat(d, "dd.mm.yyyy HH:MM") + " ça disait: " + last_item.message;
             return datestring;
+        }
+        catch(e) {
+            console.log(e);
+            return '';
+        }
+
+    },
+    /* new last seen for db lastseen update in place 31/12/2017*/
+    last_seen: function(nick) {
+        try {
+            var elem = coll_lastseen.where({name: nick});
+            if (elem.items.length === 1) {
+                var elem_cid = elem.items[0].cid;
+                var d = new Date(elem.items[0].$updated);
+                var datestring = dateFormat(d, "dd.mm.yyyy HH:MM") + " ça disait: " + elem.items[0].message;
+                return datestring;
+            } else {
+                return 'Je suis confus.';
+            }
+            /*
+            var query = coll_lastseen.where({name: nick});
+            var last_item = query.items[query.items.length-1];
+            */
+            
+            //var datestring = d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear() + " vers " + d.getHours() + " heures. Il / Elle disait: " + last_item.message;
+            
         }
         catch(e) {
             console.log(e);
@@ -226,14 +253,29 @@ module.exports = {
         return "I know the following commands: " + help_commands_string;
     },
     addToArchive: function(msg, nick) {
-        if (!msg.toUpperCase().startsWith('^'.toUpperCase())){
-            //archive.push(nick + ': ' + msg); LOG to Locallydb
+        if (!msg.toUpperCase().startsWith('^'.toUpperCase()) && msg.length > 80){
+            
+            //only log long messages to archive
             collection.insert([
                 {name: nick, message: msg}
             ]);
             collection.save();
         }
         
+    },
+    addToLastSeenDb: function(msg, nick) {
+        //coll_lastseen
+        var elem = coll_lastseen.where({name: nick});
+        if(elem.items.length === 0) { // no entry yet
+            coll_lastseen.insert([
+                {name: nick, message: msg}
+            ]);
+            
+        } else if (elem.items.length === 1) {
+            var elem_cid = elem.items[0].cid;
+            coll_lastseen.update(elem_cid, {message: msg});
+        }
+        coll_lastseen.save();
     }
 
 };
