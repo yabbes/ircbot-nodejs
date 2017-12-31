@@ -174,6 +174,7 @@ module.exports = {
             elem_notes.map(function(note, index) {
                 notes += '[' +index + ']: ' + note + ' ';
             });
+            console.log(notes);
             return notes;
         }
         return "j'ai 0 notes là";
