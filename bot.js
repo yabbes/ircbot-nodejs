@@ -4,12 +4,13 @@ var irc = require('irc');
 var weather = require('weather-js');
 var messageAction = require('./message_action');
 var config = {
-    channels: ["##yabbot-testing"],
+    channels: ["##chalu-testing"],
     server: "irc.freenode.org",
-    botName: "chalumeau2",
-    autoRejoin: false,
-    userName: 'yabbot',
+    botName: "chalumooo",
+    autoRejoin: true,
+    userName: 'yabbot2',
     realName: 'le yabbot',
+    encoding: 'UTF-8',
     autoConnect: true,
     floodProtection: true,
     floodProtectionDelay: 3000
