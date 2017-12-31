@@ -62,7 +62,7 @@ module.exports = {
             var last_item = query.items[query.items.length-1];
             var d = new Date(last_item.$created);
             //var datestring = d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear() + " vers " + d.getHours() + " heures. Il / Elle disait: " + last_item.message;
-            var datestring = dateFormat(d, "dd.mm.yyyy HH:MM") + " ça disait: " + last_item.message;
+            var datestring = dateFormat(d, "dd.mm.yyyy HH:MM") + " et ça disait: " + last_item.message;
             return datestring;
         }
         catch(e) {
@@ -81,7 +81,13 @@ module.exports = {
                 var datestring = dateFormat(d, "dd.mm.yyyy HH:MM") + " ça disait: " + elem.items[0].message;
                 return datestring;
             } else {
-                return 'Je suis confus.';
+                var second_try = module.exports.last(nick);
+                if (second_try != '') {
+                    return "Si mon mémoire ne m'échappe pas, c'était le " + second_try;
+                } else {
+                    return 'Je suis confus.';
+                }
+                
             }
             /*
             var query = coll_lastseen.where({name: nick});
