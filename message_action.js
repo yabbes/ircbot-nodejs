@@ -37,14 +37,15 @@ module.exports = {
             //from random point upwards
             for (var i=starting_nr; i<num_items; i++){
                 var rand_item = query.items[i];
-                if(rand_item.message.length > 80) {
+                console.log(i+ " " + query.items[i].message);
+                if(rand_item.message.length > 70) {
                     return rand_item.message;
                 }
             }
             //from random point downwards
             for (var i=starting_nr; i>0; i--){
                 var rand_item = query.items[i];
-                if(rand_item.message.length > 80) {
+                if(rand_item.message.length > 70) {
                     return rand_item.message;
                 }
             }
