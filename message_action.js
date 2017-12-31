@@ -28,7 +28,9 @@ module.exports = {
             if (num_items == 0) {
                 return nick + " s'est jamais pointé dans ce chan."
             }
+            console.log("total length: + " + query.items.length);
             var starting_nr = Math.floor(Math.random()*query.items.length);
+            console.log("random nr picked: " + starting_nr);
             //var rand_item = query.items[Math.floor(Math.random()*query.items.length)];
             //console.log("first rand item: " + rand_item.message);
             
