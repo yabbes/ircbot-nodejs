@@ -38,14 +38,14 @@ module.exports = {
             for (var i=starting_nr; i<num_items; i++){
                 var rand_item = query.items[i];
                 console.log(i+ " " + query.items[i].message);
-                if(rand_item.message.length > 70) {
+                if(rand_item.message.length > 70 && !(rand_item.message.startsWith("http")) {
                     return rand_item.message;
                 }
             }
             //from random point downwards
             for (var i=starting_nr; i>0; i--){
                 var rand_item = query.items[i];
-                if(rand_item.message.length > 70) {
+                if(rand_item.message.length > 70 && !(rand_item.message.startsWith("http"))) {
                     return rand_item.message;
                 }
             }
@@ -267,7 +267,7 @@ module.exports = {
         return "I know the following commands: " + help_commands_string;
     },
     addToArchive: function(msg, nick) {
-        if (!msg.toUpperCase().startsWith('^'.toUpperCase()) && msg.length > 80){
+        if (!msg.toUpperCase().startsWith('^'.toUpperCase()) && msg.length > 80 && !(msg.startsWith("http"))){
             
             //only log long messages to archive
             collection.insert([
