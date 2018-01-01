@@ -26,7 +26,7 @@ module.exports = {
             var num_items = query.items.length;
             console.log("query = " + query.items.length);
             if (num_items == 0) {
-                return nick + " s'est jamais pointé dans ce chan."
+                return nick + " n'a jamais rien dit de remarquable."
             }
             console.log("total length: + " + query.items.length);
             var starting_nr = Math.floor(Math.random()*query.items.length);
@@ -84,7 +84,7 @@ module.exports = {
                 var datestring = dateFormat(d, "dd.mm.yyyy HH:MM") + " ça disait: " + elem.items[0].message;
                 return datestring;
             } else {
-			return "Je suis navré, mais ca m'échappe...";
+			    return "Je suis navré, mais ca m'échappe..."; // temporary disable the rest 
                 var second_try = module.exports.last(nick);
                 if (second_try != '') {
                     return "Si mon mémoire ne m'échappe pas, c'était le " + second_try;
@@ -117,8 +117,11 @@ module.exports = {
             if(result[0]){
                 loc_name = result[0].location.name;
                 loc_temp = result[0].current.temperature;
-                console.log(loc_name, loc_temp);
-                temp_string = "La météo en ce moment à " +loc_name + " " + loc_temp + "°C";
+                loc_skytext = result[0].current.skytext; 
+                loc_feelslike = result[0].current.feelslike;
+                loc_wind = result[0].current.windspeed;
+
+                temp_string = "La météo en ce moment à " +loc_name + ": " + loc_skytext + ", " + loc_temp + "°C (" + loc_feelslike + "°C ressenti, vent: " + loc_wind + ")";
                 cb(temp_string);
             }
         });
