@@ -38,7 +38,7 @@ module.exports = {
             for (var i=starting_nr; i<num_items; i++){
                 var rand_item = query.items[i];
                 console.log(i+ " " + query.items[i].message);
-                if(rand_item.message.length > 70 && !(rand_item.message.startsWith("http")) {
+                if(rand_item.message.length > 70 && !(rand_item.message.startsWith("http"))) {
                     return rand_item.message;
                 }
             }
