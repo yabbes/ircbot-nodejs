@@ -84,6 +84,7 @@ module.exports = {
                 var datestring = dateFormat(d, "dd.mm.yyyy HH:MM") + " ça disait: " + elem.items[0].message;
                 return datestring;
             } else {
+			return "Je suis navré, mais ca m'échappe...";
                 var second_try = module.exports.last(nick);
                 if (second_try != '') {
                     return "Si mon mémoire ne m'échappe pas, c'était le " + second_try;
