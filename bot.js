@@ -46,6 +46,8 @@ bot.addListener('message', function (from, to, message) {
         bot.say(to, "vu la dernière fois " + split_m[1] + ": " + messageAction.last_seen(split_m[1]));
     } else if (message.toUpperCase().startsWith('^help'.toUpperCase())) { // ^help
         bot.say(to, from + ": " + messageAction.help());
+    } else if (message.toUpperCase().startsWith('osef'.toUpperCase())) { // OSEF
+        bot.say(to, messageAction.osef());
     } else if (message.toUpperCase().startsWith('^weather'.toUpperCase())) { // ^weather
         //var split_m = message.split(' '); // weather = split_m[1]
         var location = message.substring(8);

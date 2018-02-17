@@ -266,6 +266,9 @@ module.exports = {
         var help_commands_string = commands.join(', ');
         return "I know the following commands: " + help_commands_string;
     },
+    osef: function() {
+        return "ON S'EN FOUT ᕙ(⇀‸↼‶)ᕗ";
+    },
     addToArchive: function(msg, nick) {
 	if (nick == "chalumeau"){
 		return 0;
