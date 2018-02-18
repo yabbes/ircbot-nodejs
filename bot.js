@@ -82,7 +82,7 @@ bot.addListener('message', function (from, to, message) {
         bot.say(to, from + ": " + messageAction.clear(from));
     } else if (message.toUpperCase().startsWith('^tell'.toUpperCase())) { // ^tell tell other user
         var split_m = message.split(' '); // nick = split_m[1]
-        if (split_m.length >= 1) {
+        if (split_m.length >= 2 && split_m[1].length >= 3) {
             bot.say(to, from + ": " + messageAction.tell(split_m[1], from, message.substring(7+split_m[1].length)));
         }
     } else if (message.toUpperCase().startsWith('^jour'.toUpperCase())) { // ^jour
