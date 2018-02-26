@@ -40,7 +40,10 @@ bot.addListener('message', function (from, to, message) {
         bot.say(to, messageAction.react(message));
     } else if (message.toUpperCase().startsWith('^rand'.toUpperCase())) { // ^rand
         var split_m = message.split(' '); // nick = split_m[1]
-        bot.say(to, split_m[1] + ": " + messageAction.rand(split_m[1]));
+        if (split_m.length >= 2 && split_m[1].length >= 3) {
+            bot.say(to, split_m[1] + ": " + messageAction.rand(split_m[1]));
+        }
+        
     } else if (message.toUpperCase().startsWith('^last'.toUpperCase())) { // ^last
         var split_m = message.split(' '); // nick = split_m[1]
         bot.say(to, "vu la dernière fois " + split_m[1] + ": " + messageAction.last_seen(split_m[1]));
@@ -66,10 +69,14 @@ bot.addListener('message', function (from, to, message) {
         //bot.say(to, from + ": " + messageAction.help());
     } else if (message.toUpperCase().startsWith('^rating'.toUpperCase())) { // ^rating
         var split_m = message.split(' '); // nick = split_m[1]
-        bot.say(to, messageAction.rating(split_m[1]));
+        if (split_m.length >= 2 && split_m[1].length >= 3) {
+            bot.say(to, messageAction.rating(split_m[1]));
+        }
     } else if (message.toUpperCase().startsWith('-1'.toUpperCase())) { // ^BOOOO
         var split_m = message.split(' '); // nick = split_m[1]
-        bot.say(to, messageAction.minus(split_m[1]));
+        if (split_m.length >= 2 && split_m[1].length >= 3) {
+            bot.say(to, messageAction.minus(split_m[1]));
+        }
     } else if (message.toUpperCase().startsWith('^save'.toUpperCase())) { // ^save 
         //var split_m = message.split(' '); // nick = split_m[1]
         var note_part = message.substring(6);
